@@ -1,20 +1,53 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import Colors from './constants/Colors';
+import MainScreen from './screens/MainScreen';
+import BombScreen from './screens/BombScreen';
+import LeaderboardScreen from './screens/LeaderboardScreen';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	const Stack = createNativeStackNavigator();
+	// App.js
+
+	return (
+		<>
+			<StatusBar style='auto' />
+			<NavigationContainer>
+				<Stack.Navigator initialRouteName='Main'>
+					<Stack.Screen
+						name='Main'
+						component={MainScreen}
+					/>
+					<Stack.Screen
+						name='Bomb'
+						component={BombScreen}
+						options={{
+							title: 'Bombs',
+							headerBackVisible: false,
+							headerBackTitleVisible: false,
+						}}
+					/>
+					<Stack.Screen
+						name='Leaderboard'
+						component={LeaderboardScreen}
+						options={{
+							title: 'Leaderboards',
+						}}
+					/>
+				</Stack.Navigator>
+			</NavigationContainer>
+		</>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+	container: {
+		flex: 1,
+		backgroundColor: Colors.accent500,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 });
